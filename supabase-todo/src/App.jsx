@@ -157,7 +157,7 @@ export default function App() {
           top: "12px",
           left: "12px",
           fontSize: "14px",
-          color: "#555",
+          color: "#fcfcfc",
         }}
       >
         {session.user.email}
