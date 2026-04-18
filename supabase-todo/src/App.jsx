@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./supabase";
 import Auth from "./Auth";
+import "./App.css";
 
 export default function App() {
   const [session, setSession] = useState(null);
@@ -162,11 +163,14 @@ export default function App() {
         {session.user.email}
       </div>
 
-      <div
-        style={{ maxWidth: "600px", margin: "40px auto", fontFamily: "Arial" }}
-      >
+      <div className="app-shell">
         <h1>Supabase Todo App</h1>
-        <button onClick={signOut} style={{ marginBottom: "20px" }}>
+        <button
+          type="button"
+          onClick={signOut}
+          className="btn btn-ghost"
+          style={{ marginBottom: "20px" }}
+        >
           Sign out
         </button>
 
@@ -179,9 +183,12 @@ export default function App() {
             placeholder="Enter a todo"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            style={{ flex: 1, padding: "8px" }}
+            className="inline-input"
+            style={{ flex: 1 }}
           />
-          <button type="submit">Add</button>
+          <button type="submit" className="btn btn-primary">
+            Add
+          </button>
         </form>
 
         <ul style={{ padding: 0, listStyle: "none" }}>
@@ -205,22 +212,47 @@ export default function App() {
                     type="text"
                     value={editingText}
                     onChange={(e) => setEditingText(e.target.value)}
-                    style={{ flex: 1, padding: "8px" }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        updateTodo(todo.id);
+                      }
+                    }}
+                    className="inline-input"
+                    style={{ flex: 1 }}
                   />
-                  <button type="button" onClick={() => updateTodo(todo.id)}>
-                    Save
-                  </button>
-                  <button type="button" onClick={cancelEdit}>
-                    Cancel
-                  </button>
+                  <div className="actions-row">
+                    <button
+                      type="button"
+                      onClick={() => updateTodo(todo.id)}
+                      className="btn btn-primary"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      onClick={cancelEdit}
+                      className="btn btn-ghost"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </>
               ) : (
                 <>
                   <span style={{ flex: 1 }}>{todo.text}</span>
-                  <button type="button" onClick={() => startEdit(todo)}>
+                  <button
+                    type="button"
+                    onClick={() => startEdit(todo)}
+                    className="btn btn-secondary"
+                  >
                     Edit
                   </button>
-                  <button type="button" onClick={() => deleteTodo(todo.id)}>
+                  <button
+                    type="button"
+                    onClick={() => deleteTodo(todo.id)}
+                    className="btn btn-danger"
+                  >
                     Delete
                   </button>
                 </>
