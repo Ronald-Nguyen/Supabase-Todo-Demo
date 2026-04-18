@@ -1,16 +1,33 @@
-# React + Vite
+# Supabase Todo App (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite frontend for a Supabase-backed todo demo.
 
-Currently, two official plugins are available:
+## Current Features
+- email/password sign up and sign in
+- normalized and validated email input on auth actions
+- sign out
+- current user email shown at top-left
+- create todos
+- delete todos
+- automatic todo loading for the signed-in user
+- realtime sync on insert/update/delete events
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Environment Variables
+Create `supabase-todo/.env` with:
 
-## React Compiler
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Run Locally
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Supabase Requirements
+- Auth enabled (email/password)
+- `public.todos` table with `id`, `text`, `user_id`, `created_at`
+- RLS enabled with user-scoped policies for `SELECT`, `INSERT`, `DELETE` (and optionally `UPDATE`)
+- Realtime enabled for `public.todos`
