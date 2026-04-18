@@ -57,6 +57,7 @@ The **+ x** extends the project with:
 3. Verify that RLS is enabled for `public.todos`.
 4. Verify policies for `select`, `insert`, `update`, and `delete` exist.
 5. Verify Realtime publication includes `public.todos`.
+   [Database](https://github.com/Ronald-Nguyen/Supabase-Todo-Demo/blob/main/todo_table.sql)
 
 ## Data Model
 
@@ -87,10 +88,10 @@ npm run dev
 ## Troubleshooting
 
 - App shows no data after login:
-	Check that RLS is enabled and policies for `select` exist.
+  Check that RLS is enabled and policies for `select` exist.
 - Cannot edit todos:
-	Ensure update policy exists and matches `auth.uid() = user_id`.
+  Ensure update policy exists and matches `auth.uid() = user_id`.
 - Realtime updates do not appear:
-	Ensure `public.todos` is in publication `supabase_realtime`.
+  Ensure `public.todos` is in publication `supabase_realtime`.
 - Supabase client fails to initialize:
-	Verify `.env` values for `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+  Verify `.env` values for `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
