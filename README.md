@@ -1,47 +1,58 @@
 # Supabase Todo Demo
 
-## Purpose
-Minimal hello-world project for Supabase as a Backend as a Service.
+## Overview
+
+This project is a small **Hello World + x** example for **Supabase as a Backend as a Service**.
+
+The basic Hello World consists of:
+
+- creating todos
+- loading todos from the database
+- displaying them in the frontend
+
+The **+ x** extends the project with:
+
+- email/password authentication
+- user-specific access control via RLS
+- realtime synchronization
+- deleting todos
 
 ## Features
+
 - email/password sign up and sign in
-- normalized email input (`trim + lowercase`) and basic email validation
+- normalized email input (`trim()` + lowercase)
+- basic email validation
 - sign out
-- show current user email in the top-left corner
+- display of the current user email
 - add todos
 - delete todos
-- load todos from the database for the signed-in user
-- realtime sync for todo changes (insert, update, delete)
+- load only the signed-in user's todos
+- realtime sync for todo changes (`INSERT`, `UPDATE`, `DELETE`)
 
 ## Tech Stack
+
 - React + Vite
 - Supabase
 - PostgreSQL
 
-## Setup
-1. Create a Supabase project.
-2. Create a `todos` table in `public` with at least these columns:
-   - `id` (primary key)
-   - `text` (text)
-   - `user_id` (uuid)
-   - `created_at` (timestamp, default now)
-3. Enable Email auth in Supabase Authentication.
-4. Enable RLS on `public.todos`.
-5. Add policies so authenticated users can only access their own rows:
-   - `SELECT` where `auth.uid() = user_id`
-   - `INSERT` with check `auth.uid() = user_id`
-   - `DELETE` where `auth.uid() = user_id`
-   - `UPDATE` where `auth.uid() = user_id` (optional, ready for future edits)
-6. Enable Realtime for `public.todos` in Supabase.
-7. In `supabase-todo/.env`, add:
-   - `VITE_SUPABASE_URL=...`
-   - `VITE_SUPABASE_ANON_KEY=...`
-8. Run the app:
-   - `cd supabase-todo`
-   - `npm install`
-   - `npm run dev`
+## Architecture
 
-## Notes
-- The app listens for realtime `INSERT`, `UPDATE`, and `DELETE` events on `todos`.
-- For delete sync, the app subscribes to `DELETE` without a `user_id` filter and reloads the signed-in user's list.
-- This is still a learning/demo project; harden auth, validation, and policy design for production.
+- **Frontend:** React application
+- **Backend platform:** Supabase
+- **Database:** PostgreSQL table `public.todos`
+- **Authentication:** Supabase Auth
+- **Authorization:** Row Level Security (RLS)
+- **Realtime:** Supabase Realtime subscriptions
+
+## Database Setup
+
+[Todo Component](https://github.com/Ronald-Nguyen/Supabase-Todo-Demo/todo_table.sql)
+
+## Environment Variables
+
+Create a `.env` file inside the project folder and add:
+
+```env
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+```
