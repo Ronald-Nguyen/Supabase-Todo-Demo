@@ -157,7 +157,11 @@ export default function App() {
           top: "12px",
           left: "12px",
           fontSize: "14px",
-          color: "#fcfcfc",
+          color: "var(--text-h)",
+          background: "var(--social-bg)",
+          padding: "6px 10px",
+          borderRadius: "8px",
+          border: "1px solid var(--border)",
         }}
       >
         {session.user.email}
@@ -200,7 +204,8 @@ export default function App() {
                 justifyContent: "space-between",
                 alignItems: "center",
                 gap: "10px",
-                border: "1px solid #ddd",
+                border: "1px solid var(--border)",
+                background: "color-mix(in oklab, var(--bg) 80%, #60a5fa 20%)",
                 borderRadius: "8px",
                 padding: "10px 12px",
                 marginBottom: "10px",

@@ -188,7 +188,11 @@
   margin: 40px auto;
   font-family: var(--sans);
   text-align: left;
-  background: color-mix(in oklab, var(--bg) 90%, var(--accent) 10%);
+  background: linear-gradient(
+    145deg,
+    color-mix(in oklab, var(--bg) 88%, var(--accent) 12%) 0%,
+    color-mix(in oklab, var(--bg) 88%, #2563eb 12%) 100%
+  );
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px;
@@ -231,18 +235,18 @@
 
 .btn-primary {
   color: #fff;
-  background: linear-gradient(135deg, #138a6b 0%, #0f766e 55%, #1d4ed8 100%);
-  box-shadow: 0 8px 20px -10px rgba(29, 78, 216, 0.7);
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #2563eb 100%);
+  box-shadow: 0 8px 20px -10px rgba(37, 99, 235, 0.6);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 14px 28px -14px rgba(29, 78, 216, 0.8);
+  box-shadow: 0 14px 28px -14px rgba(37, 99, 235, 0.75);
 }
 
 .btn-secondary {
   color: var(--text-h);
-  background: color-mix(in oklab, var(--bg) 70%, var(--accent) 30%);
-  border-color: rgba(170, 59, 255, 0.45);
+  background: color-mix(in oklab, var(--bg) 72%, #60a5fa 28%);
+  border-color: color-mix(in oklab, #60a5fa 60%, #f97316 40%);
 }
 
 .btn-danger {
