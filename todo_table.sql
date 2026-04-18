@@ -26,3 +26,10 @@ to authenticated
 using ((select auth.uid()) = user_id);
 
 alter publication supabase_realtime add table public.todos;
+
+create policy "users can update own todos"
+on public.todos
+for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);

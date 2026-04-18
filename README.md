@@ -44,7 +44,9 @@ The **+ x** extends the project with:
 - **Authorization:** Row Level Security (RLS)
 - **Realtime:** Supabase Realtime subscriptions
 
-[## Database Setup](https://github.com/Ronald-Nguyen/Supabase-Todo-Demo/blob/main/todo_table.sql)
+## Database Setup
+
+[Database](https://github.com/Ronald-Nguyen/Supabase-Todo-Demo/blob/main/todo_table.sql)
 
 ## Environment Variables
 
