@@ -22,15 +22,46 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    if (!session) return
+    if (!session?.user) {
+      setTodos([])
+      return
+    }
 
     loadTodos()
 
     const channel = supabase
-      .channel('todos-changes')
+      .channel(`todos-changes-${session.user.id}`)
       .on(
         'postgres_changes',
-        { event: '*', schema: 'public', table: 'todos' },
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'todos',
+          filter: `user_id=eq.${session.user.id}`,
+        },
+        () => {
+          loadTodos()
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'todos',
+          filter: `user_id=eq.${session.user.id}`,
+        },
+        () => {
+          loadTodos()
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'DELETE',
+          schema: 'public',
+          table: 'todos',
+        },
         () => {
           loadTodos()
         }
@@ -43,9 +74,12 @@ export default function App() {
   }, [session])
 
   async function loadTodos() {
+    if (!session?.user) return
+
     const { data, error } = await supabase
       .from('todos')
       .select('*')
+      .eq('user_id', session.user.id)
       .order('created_at', { ascending: false })
 
     if (!error) setTodos(data ?? [])
@@ -86,7 +120,20 @@ export default function App() {
   if (!session) return <Auth />
 
   return (
-    <div style={{ maxWidth: '600px', margin: '40px auto', fontFamily: 'Arial' }}>
+    <>
+      <div
+        style={{
+          position: 'fixed',
+          top: '12px',
+          left: '12px',
+          fontSize: '14px',
+          color: '#555',
+        }}
+      >
+        {session.user.email}
+      </div>
+
+      <div style={{ maxWidth: '600px', margin: '40px auto', fontFamily: 'Arial' }}>
       <h1>Supabase Todo App</h1>
       <button onClick={signOut} style={{ marginBottom: '20px' }}>Sign out</button>
 
@@ -123,6 +170,7 @@ export default function App() {
           </li>
         ))}
       </ul>
-    </div>
+      </div>
+    </>
   )
 }
